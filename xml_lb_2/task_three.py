@@ -8,6 +8,7 @@ class CustomContentHandler(xml.sax.ContentHandler):
         self.isInSupplier = False
         self.isInPrice = False
         self.currentArticleID = 0
+        self.IndexDict = {}
         self.internalArticleDict = {}
 
     def startElement(self, tagName, attrs):
@@ -16,13 +17,12 @@ class CustomContentHandler(xml.sax.ContentHandler):
             self.currentArticleID = attrs["id"]
             if self.currentArticleID in self.articleDict:
                 print("Repeated input of Article with the same ID")
-                self.currentArticleID = '0'
+                self.articleDict[self.currentArticleID].append({})
+                self.IndexDict[self.currentArticleID] += 1
             else:
-                self.currentArticleID = str(attrs['id'])
-                self.articleDict[self.currentArticleID] = {}
-            self.articleDict[attrs['id']] = {}
+                self.IndexDict[self.currentArticleID] = 0
+                self.articleDict[self.currentArticleID] = [{}]
             self.isInArticle = True
-            self.currentArticleID = attrs['id']
         elif tagName == 'name':
             self.isInName = True
         elif tagName == 'price':
@@ -37,13 +37,13 @@ class CustomContentHandler(xml.sax.ContentHandler):
     def characters(self, chars):
         if self.isInName:
             print(f"Name: {chars}", end='\n')
-            self.articleDict[self.currentArticleID]['name'] = chars
+            self.articleDict[self.currentArticleID][self.IndexDict[self.currentArticleID]]['name'] = chars
         if self.isInPrice:
             print(chars)
-            self.articleDict[self.currentArticleID]['price'] = float(chars)
+            self.articleDict[self.currentArticleID][self.IndexDict[self.currentArticleID]]['price'] = float(chars)
         if self.isInSupplier:
             print(f"Supplier: {chars}", end='\n')
-            self.articleDict[self.currentArticleID]['supplier'] = chars
+            self.articleDict[self.currentArticleID][self.IndexDict[self.currentArticleID]]['supplier'] = chars
 
 
     def endElement(self, tagName):
@@ -60,7 +60,6 @@ class CustomContentHandler(xml.sax.ContentHandler):
     def startDocument(self):
         print('Delivery list XML document deliveries.xml')
 
-    # Handle endDocument
     def endDocument(self):
         self.articleDict.pop('0', None)
         print('Delivery list finished')
@@ -69,3 +68,4 @@ class CustomContentHandler(xml.sax.ContentHandler):
 def main():
     handler = CustomContentHandler()
     xml.sax.parse("deliveries.xml", handler)
+    print(handler.articleDict)
