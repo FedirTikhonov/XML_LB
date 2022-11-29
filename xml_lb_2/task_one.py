@@ -1,5 +1,6 @@
 import xml.sax
 
+
 class CustomContentHandler(xml.sax.ContentHandler):
     def __init__(self):
         self.isInArticle = False
@@ -39,7 +40,6 @@ class CustomContentHandler(xml.sax.ContentHandler):
             print(chars, end='')
         if self.isInSupplier:
             print(chars, end='')
-
 
     def endElement(self, tagName):
         if tagName == 'deliveries':

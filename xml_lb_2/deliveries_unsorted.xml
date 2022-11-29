@@ -1,0 +1,22 @@
+<deliveries xmlns="urn:myspace:deliveries">
+    <article id="3526">
+    <price unitprice="true">8.97</price>
+    <name>apple</name>
+    <supplier>Krause Inc.</supplier>
+  </article>
+  <article id="7866">
+    <name>cherries</name>
+    <supplier>Helbig Inc.</supplier>
+    <price unitprice="false">10.45</price>
+  </article>
+  <article id="3526">
+    <price unitprice="true">12.67</price>
+    <supplier>Liebig Inc.</supplier>
+    <name>apple</name>
+  </article>
+  <article id="7789">
+    <name>pineapple</name>
+    <price unitprice="true">8.60</price>
+    <supplier>Richard Inc.</supplier>
+  </article>
+</deliveries>
