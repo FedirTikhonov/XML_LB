@@ -26,7 +26,7 @@ class CustomContentHandler(xml.sax.ContentHandler):
             if self.currIndent == 3:
                 self.currIndent += 3
             self.isInPrice = True
-            print(' ' * self.currIndent + f"<price unitprice={attrs['unitprice']}>", end='')
+            print(' ' * self.currIndent + f"<price unitprice=\"{attrs['unitprice']}\">", end='')
         elif tagName == 'supplier':
             if self.currIndent == 3:
                 self.currIndent += 3
@@ -52,13 +52,14 @@ class CustomContentHandler(xml.sax.ContentHandler):
         elif tagName == 'supplier':
             self.currIndent -= 3
             self.isInSupplier = False
+            print("</supplier>", end='\n')
         elif tagName == 'price':
             print("</price>", end='\n')
             self.currIndent -= 3
             self.isInPrice = False
         elif tagName == 'article':
             self.isInArticle = False
-            print(' ' * self.currIndent + "\n" + self.currIndent * ' ' + "</article>")
+            print(self.currIndent * ' ' + "</article>")
             self.currIndent -= 3
 
 def main():
