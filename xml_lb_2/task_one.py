@@ -15,7 +15,7 @@ class CustomContentHandler(xml.sax.ContentHandler):
             print("<deliveries>", end="\n")
         elif tagName == 'article':
             self.currIndent += 3
-            print(' ' * self.currIndent + f"<article id={attrs['id']}>")
+            print(' ' * self.currIndent + f"<article id=\"{attrs['id']}\">")
             self.isInArticle = True
         elif tagName == 'name':
             if self.currIndent == 3:

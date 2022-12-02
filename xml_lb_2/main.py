@@ -7,4 +7,4 @@ import task_one
 import random
 
 if __name__ == '__main__':
-    task_six.main()
+    task_one.main()
